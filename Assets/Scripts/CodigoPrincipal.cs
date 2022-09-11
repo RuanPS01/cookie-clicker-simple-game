@@ -7,6 +7,9 @@ public class CodigoPrincipal : MonoBehaviour
     float pontuacaoCookie = 0;
     float pontuacaoCaixa = 0;
 
+    bool dominuindoPontosCookie = false;
+    bool zerandoPontosCaixa = false;
+
     void Start()
     {
         
@@ -14,35 +17,36 @@ public class CodigoPrincipal : MonoBehaviour
 
     void Update()
     {
-        if (pontuacaoCookie > 0) {
+        if (pontuacaoCookie > 0 && !dominuindoPontosCookie) {
+            dominuindoPontosCookie = true;
             StartCoroutine(diminuiPontuacaoCookie());
         }
-        if (pontuacaoCaixa > 0)
+        if (pontuacaoCaixa > 0 && !zerandoPontosCaixa)
         {
+            zerandoPontosCaixa = true;
             StartCoroutine(apagaPontuacaoCaixa());
         }
 
         if (ObjetoQueFoiTocado() == "Cookie_Imagem") 
         {
-            Debug.Log("O Cookie foi tocado!");
+            pontuacaoCookie = pontuacaoCookie + 1;
         }
     }
 
     IEnumerator diminuiPontuacaoCookie()
     {
-        while (pontuacaoCookie >= 0) {
-            yield return new WaitForSeconds(1);
-            pontuacaoCookie = pontuacaoCookie - 0.001f;
-        }
+        yield return new WaitForSeconds(1);
+        pontuacaoCookie = pontuacaoCookie - 0.01f;
+        Debug.Log("Pontuação do cookie diminuida: " + pontuacaoCookie);
+        dominuindoPontosCookie = false;
     }
 
     IEnumerator apagaPontuacaoCaixa()
     {
-        while (pontuacaoCaixa > 0)
-        {
-            yield return new WaitForSeconds(5);
-            pontuacaoCaixa = 0;
-        }
+        yield return new WaitForSeconds(5);
+        pontuacaoCaixa = 0;
+        Debug.Log("Pontuação da caixa zerada" + pontuacaoCookie);
+        zerandoPontosCaixa = false;
     }
 
     string ObjetoQueFoiTocado() {

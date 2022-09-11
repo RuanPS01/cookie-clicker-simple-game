@@ -14,34 +14,9 @@ public class CodigoPrincipal : MonoBehaviour
 
     void Update()
     {
-        if (pontuacaoCookie > 0) {
-            StartCoroutine(diminuiPontuacaoCookie());
-        }
-        if (pontuacaoCaixa > 0)
-        {
-            StartCoroutine(apagaPontuacaoCaixa());
-        }
-
         if (ObjetoQueFoiTocado() == "Cookie_Imagem") 
         {
             Debug.Log("O Cookie foi tocado!");
-        }
-    }
-
-    IEnumerator diminuiPontuacaoCookie()
-    {
-        while (pontuacaoCookie >= 0) {
-            yield return new WaitForSeconds(1);
-            pontuacaoCookie = pontuacaoCookie - 0.001f;
-        }
-    }
-
-    IEnumerator apagaPontuacaoCaixa()
-    {
-        while (pontuacaoCaixa > 0)
-        {
-            yield return new WaitForSeconds(5);
-            pontuacaoCaixa = 0;
         }
     }
 

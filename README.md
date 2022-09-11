@@ -5,8 +5,6 @@ This project was created to teach how to create a game in Unity, through a Works
 Presentation files are available at the link below:
 https://drive.google.com/drive/folders/1cgMoAwV5Hkb93P0q7LneY90sy8Mk4Pg6?usp=sharing
 
-![image](https://drive.google.com/uc?export=view&id=1d4AMoRzmal-cuO2GFxHpRlfKJuWV59y3)
-
 <p align="center">
   <img width="auto" height="auto" src="https://drive.google.com/uc?export=view&id=1d4AMoRzmal-cuO2GFxHpRlfKJuWV59y3">
 </p>

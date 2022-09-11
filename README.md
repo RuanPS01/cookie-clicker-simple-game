@@ -8,5 +8,5 @@ https://drive.google.com/drive/folders/1cgMoAwV5Hkb93P0q7LneY90sy8Mk4Pg6?usp=sha
 ![image](https://drive.google.com/uc?export=view&id=1d4AMoRzmal-cuO2GFxHpRlfKJuWV59y3)
 
 <p align="center">
-  <img width="600" height="200" src="https://drive.google.com/uc?export=view&id=1d4AMoRzmal-cuO2GFxHpRlfKJuWV59y3">
+  <img width="auto" height="auto" src="https://drive.google.com/uc?export=view&id=1d4AMoRzmal-cuO2GFxHpRlfKJuWV59y3">
 </p>

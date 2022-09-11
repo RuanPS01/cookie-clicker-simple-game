@@ -5,10 +5,13 @@ using UnityEngine;
 public class CodigoPrincipal : MonoBehaviour
 {
     float pontuacaoCookie = 0;
-    float pontuacaoCaixa = 0;
+    int pontuacaoCaixa = 0;
 
     bool dominuindoPontosCookie = false;
     bool zerandoPontosCaixa = false;
+
+    float tempoParaNovaCaixa = 1;
+    int maiorPontuacaoCaixa = 0;
 
     void Start()
     {
@@ -33,19 +36,45 @@ public class CodigoPrincipal : MonoBehaviour
         }
     }
 
+    IEnumerator mostraPontuacaoCaixaQuandoMaior() 
+    {
+        if (pontuacaoCaixa > maiorPontuacaoCaixa) 
+        {
+            maiorPontuacaoCaixa = pontuacaoCaixa;
+            // Mostra pontuacao de caixas
+            Debug.Log("------Mostra pontuacao de caixas------");
+            yield return new WaitForSeconds(2);
+            // Esconde pontuacao de caixas
+            Debug.Log("|||||| Esconde pontuacao de caixas ||||||");
+        }
+    }
+
+    void pontuaCaixa() 
+    {
+        int verificadorDeNovaCaixa = (int)(pontuacaoCookie / (10 * (pontuacaoCaixa+1)));
+        if (verificadorDeNovaCaixa > 1)
+        {
+            pontuacaoCaixa = pontuacaoCaixa + 1;
+            Debug.Log("pontuacaoCaixa --> " + pontuacaoCaixa);
+            tempoParaNovaCaixa = tempoParaNovaCaixa + 1;
+            StartCoroutine(mostraPontuacaoCaixaQuandoMaior());
+        }
+    }
+
     IEnumerator diminuiPontuacaoCookie()
     {
         yield return new WaitForSeconds(1);
-        pontuacaoCookie = pontuacaoCookie - 0.01f;
+        pontuaCaixa();
+        pontuacaoCookie = pontuacaoCookie - 0.1f * pontuacaoCookie;
         Debug.Log("Pontuação do cookie diminuida: " + pontuacaoCookie);
         dominuindoPontosCookie = false;
     }
 
     IEnumerator apagaPontuacaoCaixa()
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(tempoParaNovaCaixa*(pontuacaoCaixa + 1));
         pontuacaoCaixa = 0;
-        Debug.Log("Pontuação da caixa zerada" + pontuacaoCookie);
+        Debug.Log("Pontuação da caixa zerada.");
         zerandoPontosCaixa = false;
     }
 

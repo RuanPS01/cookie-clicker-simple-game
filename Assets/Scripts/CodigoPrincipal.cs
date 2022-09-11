@@ -13,6 +13,9 @@ public class CodigoPrincipal : MonoBehaviour
     float tempoParaNovaCaixa = 1;
     int maiorPontuacaoCaixa = 0;
 
+    public ControladorDeTela tela;
+    public Animator cookieObjectAnimator;
+
     void Start()
     {
         
@@ -20,6 +23,7 @@ public class CodigoPrincipal : MonoBehaviour
 
     void Update()
     {
+        tela.AtualizaPontuacaoCookie(pontuacaoCookie);
         if (pontuacaoCookie > 0 && !dominuindoPontosCookie) {
             dominuindoPontosCookie = true;
             StartCoroutine(diminuiPontuacaoCookie());
@@ -33,19 +37,27 @@ public class CodigoPrincipal : MonoBehaviour
         if (ObjetoQueFoiTocado() == "Cookie_Imagem") 
         {
             pontuacaoCookie = pontuacaoCookie + 1;
+            if (cookieObjectAnimator.GetCurrentAnimatorStateInfo(0).IsName("Cookie_Anim"))
+            {
+                cookieObjectAnimator.SetBool("Apertando", true);
+            }
+        }
+        if (cookieObjectAnimator.GetCurrentAnimatorStateInfo(0).IsName("CookieClick_Anim"))
+        {
+            cookieObjectAnimator.SetBool("Apertando", false);
         }
     }
 
-    IEnumerator mostraPontuacaoCaixaQuandoMaior() 
+    IEnumerator mostraPontuacaoCaixaEAtualizaRecorde() 
     {
-        if (pontuacaoCaixa > maiorPontuacaoCaixa) 
+        tela.AtualizaPontuacaoCaixa(pontuacaoCaixa);
+        tela.MostraPainelPontuacaoCaixa();
+        yield return new WaitForSeconds(2);
+        tela.EscondePainelPontuacaoCaixa();
+        if (pontuacaoCaixa > maiorPontuacaoCaixa)
         {
             maiorPontuacaoCaixa = pontuacaoCaixa;
-            // Mostra pontuacao de caixas
-            Debug.Log("------Mostra pontuacao de caixas------");
-            yield return new WaitForSeconds(2);
-            // Esconde pontuacao de caixas
-            Debug.Log("|||||| Esconde pontuacao de caixas ||||||");
+            tela.AtualizaRecordeDeCaixa(maiorPontuacaoCaixa);
         }
     }
 
@@ -55,9 +67,8 @@ public class CodigoPrincipal : MonoBehaviour
         if (verificadorDeNovaCaixa > 1)
         {
             pontuacaoCaixa = pontuacaoCaixa + 1;
-            Debug.Log("pontuacaoCaixa --> " + pontuacaoCaixa);
             tempoParaNovaCaixa = tempoParaNovaCaixa + 1;
-            StartCoroutine(mostraPontuacaoCaixaQuandoMaior());
+            StartCoroutine(mostraPontuacaoCaixaEAtualizaRecorde());
         }
     }
 
@@ -66,7 +77,6 @@ public class CodigoPrincipal : MonoBehaviour
         yield return new WaitForSeconds(1);
         pontuaCaixa();
         pontuacaoCookie = pontuacaoCookie - 0.1f * pontuacaoCookie;
-        Debug.Log("Pontuação do cookie diminuida: " + pontuacaoCookie);
         dominuindoPontosCookie = false;
     }
 
@@ -74,7 +84,6 @@ public class CodigoPrincipal : MonoBehaviour
     {
         yield return new WaitForSeconds(tempoParaNovaCaixa*(pontuacaoCaixa + 1));
         pontuacaoCaixa = 0;
-        Debug.Log("Pontuação da caixa zerada.");
         zerandoPontosCaixa = false;
     }
 

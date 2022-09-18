@@ -21,7 +21,7 @@ public class CodigoPrincipal : MonoBehaviour
     }
 
     string ObjetoQueFoiTocado() {
-        if (Input.touchCount > 0)
+        if (Input.touchCount > 0 && Input.touches[0].phase == TouchPhase.Began)
         {
             Touch touch = Input.GetTouch(0);
             RaycastHit2D hit = Physics2D.Raycast(touch.position, Vector2.zero);

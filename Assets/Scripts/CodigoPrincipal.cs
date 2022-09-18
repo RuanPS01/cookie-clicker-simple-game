@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class CodigoPrincipal : MonoBehaviour
 {
-    float pontuacaoCookie = 0;
-    float pontuacaoCaixa = 0;
+    float pontuacaoCookie = 0; // diminuir cada vez mais rapido quando for aumentando a quantidade da pontuacao
+    float pontuacaoCaixa = 0; // ganhar caixa de 10 em 10 pontos de cookies (se 10 ptsCookie = 1 caixa, e se 20 ptsCookie = 2 caixas)
 
     void Start()
     {
